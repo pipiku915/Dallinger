@@ -3,7 +3,7 @@ import random
 import time
 from operator import attrgetter
 
-from flask import Blueprint, Response
+from flask import Response
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
