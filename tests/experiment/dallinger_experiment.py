@@ -1,7 +1,8 @@
 import os.path
+from flask import Blueprint
 
 from dallinger.config import get_config
-from dallinger.experiment import Experiment
+from dallinger.experiment import Experiment, experiment_route
 
 
 class TestExperiment(Experiment):
@@ -39,6 +40,11 @@ class TestExperiment(Experiment):
     def is_complete(self):
         config = get_config()
         return config.get("_is_completed", None)
+
+    @experiment_route("/custom_route")
+    def custom_route():
+        """Get all the drawings."""
+        return "A custom route."
 
 
 class ZSubclassThatSortsLower(TestExperiment):
