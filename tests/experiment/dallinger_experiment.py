@@ -1,5 +1,4 @@
 import os.path
-from flask import Blueprint
 
 from dallinger.config import get_config
 from dallinger.experiment import Experiment, experiment_route
