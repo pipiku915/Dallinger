@@ -1356,7 +1356,7 @@ def load(initialize=True):
         raise
 
 
-EXPERIMENT_ROUTE_REGISTRATIONS = {}
+EXPERIMENT_ROUTE_REGISTRATIONS = []
 
 
 def experiment_route(rule, *args, **kwargs):
@@ -1367,8 +1367,9 @@ def experiment_route(rule, *args, **kwargs):
     """
     registered_routes = EXPERIMENT_ROUTE_REGISTRATIONS
     route = {
+        "rule": rule,
         "args": args,
-        "kwargs": kwargs,
+        "kwargs": tuple(kwargs),
     }
 
     def new_func(func):
@@ -1377,7 +1378,8 @@ def experiment_route(rule, *args, **kwargs):
         name = getattr(base_func, "__name__", None)
         if name is not None:
             route["func_name"] = name
-            registered_routes[rule] = route
+            if route not in registered_routes:
+                registered_routes.append(route)
         return func
 
     return new_func
