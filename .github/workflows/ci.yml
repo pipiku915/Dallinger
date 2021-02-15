@@ -103,9 +103,6 @@ jobs:
       - name: Before Tox
         run: |
           bundle exec danger
-      - name: Codecov.io check
-        run: |
-          bash <(curl -s https://codecov.io/bash)
       - name: Run Full Tox
         env:
           DATABASE_URL: postgresql://dallinger:dallinger@localhost/dallinger
@@ -129,6 +126,10 @@ jobs:
         run: |
           tox -e fast
         if: matrix.python-version != 3.9
+      - name: Codecov.io check
+        run: |
+          bash <(curl -s https://codecov.io/bash)
+        if: matrix.python-version == 3.9
       - name: Set up deployment
         env:
           CHANDLER_GITHUB_API_TOKEN: ${{ secrets.CHANDLER_GITHUB_API_TOKEN }}
